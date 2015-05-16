@@ -1,4 +1,4 @@
-package main
+package things
 
 import (
 	"archive/zip"
@@ -13,16 +13,9 @@ import (
 	"time"
 )
 
-type ZipFile struct {
-	Folders   []string
-	Data      map[string]*Folder
+type Things struct {
+	Files     []*File
 	Timestamp time.Time
-}
-
-type Folder struct {
-	Name  string
-	Path  string
-	Files []*File
 }
 
 type File struct {
@@ -32,7 +25,7 @@ type File struct {
 	Content  string
 }
 
-func getData(input string) (*ZipFile, error) {
+func getData(input string) (*Things, error) {
 	var zipData map[string]string
 	var err error
 
@@ -47,9 +40,9 @@ func getData(input string) (*ZipFile, error) {
 		return nil, err
 	}
 
-	zipFile := &ZipFile{
+	t := &Things{
+		Files:     make([]*File, 0),
 		Timestamp: time.Now(),
-		Data:      make(map[string]*Folder),
 	}
 
 	// get a 'set' of all paths
@@ -64,25 +57,18 @@ func getData(input string) (*ZipFile, error) {
 		folders = append(folders, folder)
 	}
 	sort.Sort(sort.StringSlice(folders))
-	zipFile.Folders = folders
 
 	// store root folder/path
-	root := zipFile.Folders[0]
+	root := folders[0]
 
 	// strip away root folder/path from all folders/paths
-	for i := range zipFile.Folders {
-		zipFile.Folders[i] = strings.TrimPrefix(zipFile.Folders[i], root)
+	for i := range folders {
+		folders[i] = strings.TrimPrefix(folders[i], root)
 	}
 
 	// go through all paths, collect their files and create Folder/File structure
-	for _, p := range zipFile.Folders {
-		folder := &Folder{
-			Name: path.Base(p),
-			Path: p,
-		}
-
+	for _, p := range folders {
 		// collect all files for this path
-		var files []*File
 		for key, value := range zipData {
 			if strings.TrimPrefix(path.Dir(key), root) == p {
 				basename := filepath.Base(key)
@@ -92,16 +78,14 @@ func getData(input string) (*ZipFile, error) {
 					Path:     p,
 					Content:  value,
 				}
-				files = append(files, file)
+
+				// TODO: sort files by name here, create another temporary StringSlice
+				t.Files = append(t.Files, file)
 			}
 		}
-		folder.Files = files
-
-		// store Folder
-		zipFile.Data[p] = folder
 	}
 
-	return zipFile, nil
+	return t, nil
 }
 
 func readZipFromURL(url string) (map[string]string, error) {
