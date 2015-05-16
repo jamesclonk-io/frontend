@@ -21,9 +21,3 @@ _testmain.go
 
 *.exe
 *.test
-*.prof
-
-# ---------
-101-things
-*.zip
-

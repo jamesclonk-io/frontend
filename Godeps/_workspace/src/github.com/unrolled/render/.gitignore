@@ -21,9 +21,7 @@ _testmain.go
 
 *.exe
 *.test
-*.prof
 
-# ---------
-101-things
-*.zip
 
+*.pem
+.DS_Store
