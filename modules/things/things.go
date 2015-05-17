@@ -1,6 +1,7 @@
 package things
 
 import (
+	"html/template"
 	"net/http"
 	"path"
 	"time"
@@ -10,6 +11,7 @@ import (
 	"github.com/jamesclonk-io/stdlib/env"
 	"github.com/jamesclonk-io/stdlib/logger"
 	"github.com/jamesclonk-io/stdlib/web"
+	"github.com/russross/blackfriday"
 )
 
 var (
@@ -30,25 +32,38 @@ func ThingsHandler(navbar *web.NavBar, thingsIndex int) web.Handler {
 		}
 
 		vars := mux.Vars(req)
-		file := path.Join("/", vars["file"])
+		filename := vars["file"]
+		file := path.Join("/", filename)
 
 		// find file
-		var content string
+		var markdown string
 		for _, f := range data101.Files {
 			if path.Join("/", f.Path, f.Name) == file {
-				content = f.Content
+				markdown = f.Content
 			}
 		}
 
+		// generate HTML from markdown
+		html := blackfriday.MarkdownCommon([]byte(markdown))
+
+		// wrap into struct
+		content := struct {
+			Title string
+			HTML  template.HTML
+		}{
+			Title: filename,
+			HTML:  template.HTML(string(html)),
+		}
+
 		return &web.Page{
-			Title:    "jamesclonk.io - 101 Things - " + vars["file"],
+			Title:    "jamesclonk.io - 101 Things - " + filename,
 			Content:  content,
-			Template: "index",
+			Template: "things",
 		}
 	}
 }
 
-func checkData(navbar *web.NavBar, thingsIndex int, refresh bool) error {
+func checkData(navbar *web.NavBar, navIndex int, refresh bool) error {
 	// reset data if not set
 	if data101 == nil {
 		data101 = &Things{}
@@ -60,9 +75,9 @@ func checkData(navbar *web.NavBar, thingsIndex int, refresh bool) error {
 			return err
 		}
 
+		// create new navbar elements
 		navElements := make([]web.NavElement, 0)
 		for _, file := range data101.Files {
-			// create new navbar element
 			navElements = append(navElements, web.NavElement{
 				Name:     path.Join("/", file.Path, file.Basename),
 				Link:     path.Join("/101", file.Path, file.Name),
@@ -70,8 +85,8 @@ func checkData(navbar *web.NavBar, thingsIndex int, refresh bool) error {
 			})
 		}
 
-		// reset navigation bar element
-		(*navbar)[thingsIndex].Dropdown = navElements
+		// reset navigation bar element for "101"
+		(*navbar)[navIndex].Dropdown = navElements
 	}
 	return nil
 }

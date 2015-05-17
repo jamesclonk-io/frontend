@@ -25,15 +25,24 @@
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/env",
-			"Rev": "5609f0e95367a251b2430a798ebc603fc6d6e061"
+			"Rev": "3a851fa4fd056e8e53d7244107f1491fc785d714"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/logger",
-			"Rev": "5609f0e95367a251b2430a798ebc603fc6d6e061"
+			"Rev": "3a851fa4fd056e8e53d7244107f1491fc785d714"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/web",
-			"Rev": "5609f0e95367a251b2430a798ebc603fc6d6e061"
+			"Rev": "3a851fa4fd056e8e53d7244107f1491fc785d714"
+		},
+		{
+			"ImportPath": "github.com/russross/blackfriday",
+			"Comment": "v1.2-69-g4bed88b",
+			"Rev": "4bed88b4fd00fbb66b49b0f38ed3dd0b902ab515"
+		},
+		{
+			"ImportPath": "github.com/shurcooL/sanitized_anchor_name",
+			"Rev": "11a20b799bf22a02808c862eb6ca09f7fb38f84a"
 		},
 		{
 			"ImportPath": "github.com/tylerb/graceful",

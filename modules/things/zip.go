@@ -3,9 +3,9 @@ package things
 import (
 	"archive/zip"
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"path"
 	"path/filepath"
 	"sort"
@@ -45,44 +45,31 @@ func getData(input string) (*Things, error) {
 		Timestamp: time.Now(),
 	}
 
-	// get a 'set' of all paths
-	paths := make(map[string]interface{})
-	for key, _ := range zipData {
-		paths[path.Dir(key)] = nil
+	// collect and sort all files
+	var files []string
+	for file, _ := range zipData {
+		files = append(files, file)
+	}
+	sort.Sort(sort.StringSlice(files))
+
+	// store root folder
+	root := path.Dir(files[0])
+
+	// strip away root folder from all paths
+	for i := range files {
+		files[i] = strings.TrimPrefix(files[i], root)
 	}
 
-	// collect and sort all paths
-	var folders []string
-	for folder, _ := range paths {
-		folders = append(folders, folder)
-	}
-	sort.Sort(sort.StringSlice(folders))
-
-	// store root folder/path
-	root := folders[0]
-
-	// strip away root folder/path from all folders/paths
-	for i := range folders {
-		folders[i] = strings.TrimPrefix(folders[i], root)
-	}
-
-	// go through all paths, collect their files and create Folder/File structure
-	for _, p := range folders {
-		// collect all files for this path
-		for key, value := range zipData {
-			if strings.TrimPrefix(path.Dir(key), root) == p {
-				basename := filepath.Base(key)
-				file := &File{
-					Name:     path.Base(key),
-					Basename: strings.TrimSuffix(basename, filepath.Ext(basename)),
-					Path:     p,
-					Content:  value,
-				}
-
-				// TODO: sort files by name here, create another temporary StringSlice
-				t.Files = append(t.Files, file)
-			}
+	// go through all files
+	for _, file := range files {
+		basename := filepath.Base(file)
+		f := &File{
+			Name:     path.Base(file),
+			Basename: strings.TrimSuffix(basename, filepath.Ext(basename)),
+			Path:     path.Dir(file),
+			Content:  zipData[root+file],
 		}
+		t.Files = append(t.Files, f)
 	}
 
 	return t, nil
@@ -99,29 +86,22 @@ func readZipFromURL(url string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	return readZip(bytes.NewReader(data), resp.ContentLength)
+	return readZip(bytes.NewReader(data), int64(len(data)))
 }
 
 func readZipFromFile(file string) (map[string]string, error) {
-	f, err := os.Open(file)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
-	fi, err := f.Stat()
-	if err != nil {
-		return nil, err
-	}
-
 	data, err := ioutil.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
-	return readZip(bytes.NewReader(data), fi.Size())
+	return readZip(bytes.NewReader(data), int64(len(data)))
 }
 
 func readZip(data *bytes.Reader, size int64) (map[string]string, error) {
+	if size < 42 {
+		return nil, fmt.Errorf("101 things data invalid, size too small: %d", size)
+	}
+
 	r, err := zip.NewReader(data, size)
 	if err != nil {
 		return nil, err

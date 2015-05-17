@@ -29,7 +29,8 @@ func main() {
 
 	// setup routes
 	frontend.NewRoute("/", index)
-	frontend.NewRoute("/101/{file:.*}", things.ThingsHandler(&frontend.PageMaster.Navbar, 1)) // ThingsHandler will modify navigation (101 dropdown list)
+	// ThingsHandler will modify navigation (101 dropdown list)
+	frontend.NewRoute("/101/{file:.*}", things.ThingsHandler(&frontend.PageMaster.Navbar, 1))
 	frontend.NewRoute("/link", index)
 	frontend.NewRoute("/error", createError)
 
@@ -51,5 +52,5 @@ func index(w http.ResponseWriter, req *http.Request) *web.Page {
 }
 
 func createError(w http.ResponseWriter, req *http.Request) *web.Page {
-	return web.Error("jamesclonk.io", http.StatusInternalServerError, fmt.Errorf("Crap!"))
+	return web.Error("jamesclonk.io", http.StatusInternalServerError, fmt.Errorf("Oops!"))
 }

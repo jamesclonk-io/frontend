@@ -1,1 +1,3 @@
-# 101-things
+# main web frontend
+
+main web frontend for jc.io
