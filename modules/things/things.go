@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"path"
+	"sync"
 	"time"
 
 	"github.com/Sirupsen/logrus"
@@ -11,54 +12,66 @@ import (
 	"github.com/jamesclonk-io/stdlib/env"
 	"github.com/jamesclonk-io/stdlib/logger"
 	"github.com/jamesclonk-io/stdlib/web"
-	"github.com/russross/blackfriday"
 )
 
 var (
-	data101     *Things
-	data101File string
-	log         *logrus.Logger
+	data101      *Things
+	data101File  string
+	data101Mutex *sync.Mutex
+	log          *logrus.Logger
 )
 
 func init() {
+	data101 = &Things{}
 	data101File = env.Get("JCIO_101_THINGS_DATA", "https://github.com/jamesclonk-io/101-things/archive/master.zip")
+	data101Mutex = &sync.Mutex{}
 	log = logger.GetLogger()
 }
 
-func ThingsHandler(navbar *web.NavBar, thingsIndex int) web.Handler {
+func ThingsViewHandler(w http.ResponseWriter, req *http.Request) *web.Page {
+	vars := mux.Vars(req)
+	filename := vars["file"]
+	file := path.Join("/", filename)
+
+	// find file
+	var html template.HTML
+	for _, f := range data101.Files {
+		if path.Join("/", f.Path, f.Name) == file {
+			html = f.Content
+		}
+	}
+
+	// wrap into struct
+	content := struct {
+		Title string
+		HTML  template.HTML
+	}{
+		Title: filename,
+		HTML:  html,
+	}
+
+	return &web.Page{
+		Title:            "jamesclonk.io - 101 Things - " + filename,
+		ActiveNavElement: "101",
+		Content:          content,
+		Template:         "things",
+	}
+}
+
+func ThingsRefreshHandler(navbar *web.NavBar, thingsIndex int) web.Handler {
 	return func(w http.ResponseWriter, req *http.Request) *web.Page {
-		if err := checkData(navbar, thingsIndex, req.URL.Query().Get("refresh") == "true"); err != nil {
+		data101Mutex.Lock()
+		defer data101Mutex.Unlock()
+
+		if err := checkData(navbar, thingsIndex, true); err != nil {
 			return web.Error("jamesclonk.io", http.StatusInternalServerError, err)
 		}
 
-		vars := mux.Vars(req)
-		filename := vars["file"]
-		file := path.Join("/", filename)
-
-		// find file
-		var markdown string
-		for _, f := range data101.Files {
-			if path.Join("/", f.Path, f.Name) == file {
-				markdown = f.Content
-			}
-		}
-
-		// generate HTML from markdown
-		html := blackfriday.MarkdownCommon([]byte(markdown))
-
-		// wrap into struct
-		content := struct {
-			Title string
-			HTML  template.HTML
-		}{
-			Title: filename,
-			HTML:  template.HTML(string(html)),
-		}
-
 		return &web.Page{
-			Title:    "jamesclonk.io - 101 Things - " + filename,
-			Content:  content,
-			Template: "things",
+			Title:            "jamesclonk.io - Refresh",
+			ActiveNavElement: "Home",
+			Content:          nil,
+			Template:         "index",
 		}
 	}
 }

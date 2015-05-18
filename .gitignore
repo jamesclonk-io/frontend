@@ -24,6 +24,6 @@ _testmain.go
 *.prof
 
 # ---------
-101-things
+frontend
+jcio-frontend
 *.zip
-

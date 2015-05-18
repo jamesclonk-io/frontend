@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"net/http"
 	"path"
@@ -11,6 +12,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/russross/blackfriday"
 )
 
 type Things struct {
@@ -22,7 +25,7 @@ type File struct {
 	Name     string
 	Basename string
 	Path     string
-	Content  string
+	Content  template.HTML
 }
 
 func getData(input string) (*Things, error) {
@@ -63,11 +66,12 @@ func getData(input string) (*Things, error) {
 	// go through all files
 	for _, file := range files {
 		basename := filepath.Base(file)
+		html := blackfriday.MarkdownCommon([]byte(zipData[root+file])) // generate HTML from markdown
 		f := &File{
 			Name:     path.Base(file),
 			Basename: strings.TrimSuffix(basename, filepath.Ext(basename)),
 			Path:     path.Dir(file),
-			Content:  zipData[root+file],
+			Content:  template.HTML(html),
 		}
 		t.Files = append(t.Files, f)
 	}

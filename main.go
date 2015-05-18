@@ -15,7 +15,7 @@ func main() {
 	// setup navigation
 	navbar := web.NavBar{
 		web.NavElement{"Home", "/", nil},
-		web.NavElement{"101", "/101/_load", nil},
+		web.NavElement{"101", "/refresh", nil},
 		web.NavElement{"Throw 404", "/contact", nil},
 		web.NavElement{"Throw Error", "/error", nil},
 		web.NavElement{"Menu", "#", []web.NavElement{
@@ -29,8 +29,11 @@ func main() {
 
 	// setup routes
 	frontend.NewRoute("/", index)
-	// ThingsHandler will modify navigation (101 dropdown list)
-	frontend.NewRoute("/101/{file:.*}", things.ThingsHandler(&frontend.PageMaster.Navbar, 1))
+
+	// ThingsRefreshHandler will modify navigation (101 dropdown list)
+	frontend.NewRoute("/refresh", things.ThingsRefreshHandler(&frontend.PageMaster.Navbar, 1))
+	frontend.NewRoute("/101/{file:.*}", things.ThingsViewHandler)
+
 	frontend.NewRoute("/link", index)
 	frontend.NewRoute("/error", createError)
 
@@ -45,9 +48,10 @@ func main() {
 
 func index(w http.ResponseWriter, req *http.Request) *web.Page {
 	return &web.Page{
-		Title:    "jamesclonk.io",
-		Content:  nil,
-		Template: "index",
+		Title:            "jamesclonk.io",
+		ActiveNavElement: "Home",
+		Content:          nil,
+		Template:         "index",
 	}
 }
 
