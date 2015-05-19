@@ -31,16 +31,16 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            {{ $active := .ActiveNavElement}}
+            {{ $active := .ActiveLink }}
             {{ range .Navbar }}
               {{ if not .Dropdown }}
-                <li class='{{ if eq .Name $active }}active{{ end }}'><a href="{{ .Link }}">{{ .Name }}</a></li>
+                <li class='{{ if eq .Link $active }}active{{ end }}'><a href="{{ .Link }}">{{ .Name }}</a></li>
               {{ else }}
                 <li class='dropdown'>
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                   {{ range .Dropdown }}
-                    <li class='{{ if eq .Name $active }}active{{ end }}'><a href="{{ .Link }}">{{ .Name }}</a></li>
+                    <li class='{{ if eq .Link $active }}active{{ end }}'><a href="{{ .Link }}">{{ .Name }}</a></li>
                   {{ end }}
                   </ul>
                 </li>

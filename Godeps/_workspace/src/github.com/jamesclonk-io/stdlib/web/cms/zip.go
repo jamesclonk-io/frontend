@@ -1,4 +1,4 @@
-package things
+package cms
 
 import (
 	"archive/zip"
@@ -16,19 +16,7 @@ import (
 	"github.com/russross/blackfriday"
 )
 
-type Things struct {
-	Files     []*File
-	Timestamp time.Time
-}
-
-type File struct {
-	Name     string
-	Basename string
-	Path     string
-	Content  template.HTML
-}
-
-func getData(input string) (*Things, error) {
+func getDataFromZip(input string) (*CMSData, error) {
 	var zipData map[string]string
 	var err error
 
@@ -43,8 +31,8 @@ func getData(input string) (*Things, error) {
 		return nil, err
 	}
 
-	t := &Things{
-		Files:     make([]*File, 0),
+	data := &CMSData{
+		Content:   make([]*CMSContent, 0),
 		Timestamp: time.Now(),
 	}
 
@@ -67,16 +55,16 @@ func getData(input string) (*Things, error) {
 	for _, file := range files {
 		basename := filepath.Base(file)
 		html := blackfriday.MarkdownCommon([]byte(zipData[root+file])) // generate HTML from markdown
-		f := &File{
+		content := &CMSContent{
 			Name:     path.Base(file),
 			Basename: strings.TrimSuffix(basename, filepath.Ext(basename)),
 			Path:     path.Dir(file),
 			Content:  template.HTML(html),
 		}
-		t.Files = append(t.Files, f)
+		data.Content = append(data.Content, content)
 	}
 
-	return t, nil
+	return data, nil
 }
 
 func readZipFromURL(url string) (map[string]string, error) {

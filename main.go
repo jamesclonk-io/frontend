@@ -4,26 +4,28 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/jamesclonk-io/frontend/modules/things"
+	"github.com/Sirupsen/logrus"
+	"github.com/jamesclonk-io/stdlib/logger"
 	"github.com/jamesclonk-io/stdlib/web"
+	"github.com/jamesclonk-io/stdlib/web/cms"
 	"github.com/jamesclonk-io/stdlib/web/negroni"
 )
+
+var (
+	log *logrus.Logger
+)
+
+func init() {
+	log = logger.GetLogger()
+}
 
 func main() {
 	frontend := web.NewFrontend()
 
 	// setup navigation
-	navbar := web.NavBar{
-		web.NavElement{"Home", "/", nil},
-		web.NavElement{"101", "/refresh", nil},
-		web.NavElement{"Throw 404", "/contact", nil},
-		web.NavElement{"Throw Error", "/error", nil},
-		web.NavElement{"Menu", "#", []web.NavElement{
-			web.NavElement{"Action", "/action", nil},
-			web.NavElement{"Something else here", "/something_else", nil},
-			web.NavElement{"Link", "/link", nil},
-			web.NavElement{"Another Link", "/more_link", nil},
-		}},
+	navbar, err := cms.GetNavBar()
+	if err != nil {
+		log.Fatal(err)
 	}
 	frontend.SetNavigation(navbar)
 
@@ -31,8 +33,8 @@ func main() {
 	frontend.NewRoute("/", index)
 
 	// ThingsRefreshHandler will modify navigation (101 dropdown list)
-	frontend.NewRoute("/refresh", things.ThingsRefreshHandler(&frontend.PageMaster.Navbar, 1))
-	frontend.NewRoute("/101/{file:.*}", things.ThingsViewHandler)
+	frontend.NewRoute("/refresh", cms.ThingsRefreshHandler(&frontend.PageMaster.Navbar, 1))
+	frontend.NewRoute("/101/{.*}", cms.ViewHandler)
 
 	frontend.NewRoute("/link", index)
 	frontend.NewRoute("/error", createError)
@@ -48,10 +50,10 @@ func main() {
 
 func index(w http.ResponseWriter, req *http.Request) *web.Page {
 	return &web.Page{
-		Title:            "jamesclonk.io",
-		ActiveNavElement: "Home",
-		Content:          nil,
-		Template:         "index",
+		Title:      "jamesclonk.io",
+		ActiveLink: "/",
+		Content:    nil,
+		Template:   "index",
 	}
 }
 
