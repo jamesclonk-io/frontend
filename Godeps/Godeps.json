@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/jamesclonk-io/frontend",
-	"GoVersion": "go1.4",
+	"GoVersion": "go1.4.1",
 	"Packages": [
 		"./..."
 	],
@@ -25,15 +25,15 @@
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/env",
-			"Rev": "1c3679837aaeed78dcd6d4b4543cf004aee7f7e3"
+			"Rev": "0044685303f4b347b041afe0a6e1b78d08f6433c"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/logger",
-			"Rev": "1c3679837aaeed78dcd6d4b4543cf004aee7f7e3"
+			"Rev": "0044685303f4b347b041afe0a6e1b78d08f6433c"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/web",
-			"Rev": "1c3679837aaeed78dcd6d4b4543cf004aee7f7e3"
+			"Rev": "0044685303f4b347b041afe0a6e1b78d08f6433c"
 		},
 		{
 			"ImportPath": "github.com/russross/blackfriday",
