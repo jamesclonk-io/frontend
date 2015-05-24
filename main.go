@@ -22,6 +22,11 @@ func init() {
 func main() {
 	frontend := web.NewFrontend()
 
+	content, err := cms.NewCMS()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// setup navigation
 	navbar, err := cms.GetNavBar()
 	if err != nil {
@@ -35,6 +40,7 @@ func main() {
 	// ThingsRefreshHandler will modify navigation (101 dropdown list)
 	frontend.NewRoute("/refresh", cms.ThingsRefreshHandler(&frontend.PageMaster.Navbar, 1))
 	frontend.NewRoute("/101/{.*}", cms.ViewHandler)
+	frontend.NewRoute("/goty/{.*}", cms.ViewHandler)
 
 	frontend.NewRoute("/link", index)
 	frontend.NewRoute("/error", createError)
