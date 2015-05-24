@@ -25,15 +25,15 @@
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/env",
-			"Rev": "c62d1f176a184e1ce8e9e02f5a656fb7dbb31ede"
+			"Rev": "89628091ceffa7f631924f0d1c48d9d2177c1647"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/logger",
-			"Rev": "c62d1f176a184e1ce8e9e02f5a656fb7dbb31ede"
+			"Rev": "89628091ceffa7f631924f0d1c48d9d2177c1647"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/web",
-			"Rev": "c62d1f176a184e1ce8e9e02f5a656fb7dbb31ede"
+			"Rev": "89628091ceffa7f631924f0d1c48d9d2177c1647"
 		},
 		{
 			"ImportPath": "github.com/russross/blackfriday",

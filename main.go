@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/jamesclonk-io/frontend/modules/quotes"
 	"github.com/jamesclonk-io/stdlib/logger"
 	"github.com/jamesclonk-io/stdlib/web"
 	"github.com/jamesclonk-io/stdlib/web/cms"
@@ -43,6 +44,7 @@ func main() {
 
 	// setup negroni
 	n := negroni.Sbagliato()
+	n.UseHandler(quotes.NewQuoteMiddleware(frontend))
 	n.UseHandler(frontend.Router)
 
 	// start web server
