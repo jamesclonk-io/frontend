@@ -12,13 +12,13 @@
     <title>{{ .Title }}</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <!--<link href="/css/bootstrap-theme.min.css" rel="stylesheet">-->
+    <link href="/css/theme.min.css" rel="stylesheet">
     <link href="/css/jcio.css" rel="stylesheet">
   </head>
 
   <body role="document">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -58,6 +58,8 @@
     <div class="container" role="main">
       {{ yield }}
     </div>
+
+    <img class="coa" src="/images/jamesclonk_coa.png" alt="JamesClonk's Coat of Arms">
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
