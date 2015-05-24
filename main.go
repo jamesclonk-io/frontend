@@ -20,27 +20,23 @@ func init() {
 }
 
 func main() {
-	frontend := web.NewFrontend()
+	// frontend
+	frontend := web.NewFrontend("jamesclonk.io")
 
-	content, err := cms.NewCMS()
+	// cms
+	c, err := cms.NewCMS(frontend)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// setup navigation
-	navbar, err := cms.GetNavBar()
-	if err != nil {
-		log.Fatal(err)
-	}
-	frontend.SetNavigation(navbar)
 
 	// setup routes
 	frontend.NewRoute("/", index)
 
-	// ThingsRefreshHandler will modify navigation (101 dropdown list)
-	frontend.NewRoute("/refresh", cms.ThingsRefreshHandler(&frontend.PageMaster.Navbar, 1))
-	frontend.NewRoute("/101/{.*}", cms.ViewHandler)
-	frontend.NewRoute("/goty/{.*}", cms.ViewHandler)
+	frontend.NewRoute("/refresh", c.RefreshHandler)
+
+	frontend.NewRoute("/101/{.*}", c.ViewHandler)
+	frontend.NewRoute("/101/{.*}/{.*}", c.ViewHandler)
+	frontend.NewRoute("/goty/{.*}", c.ViewHandler)
 
 	frontend.NewRoute("/link", index)
 	frontend.NewRoute("/error", createError)
@@ -56,7 +52,6 @@ func main() {
 
 func index(w http.ResponseWriter, req *http.Request) *web.Page {
 	return &web.Page{
-		Title:      "jamesclonk.io",
 		ActiveLink: "/",
 		Content:    nil,
 		Template:   "index",
