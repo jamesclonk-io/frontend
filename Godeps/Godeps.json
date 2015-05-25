@@ -25,15 +25,23 @@
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/env",
-			"Rev": "9e002bd6c88f4bd737ed408549c97d1630d93f5a"
+			"Rev": "82bcb89812f6cb7e3f8778473d3e192af56cc5a3"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/logger",
-			"Rev": "9e002bd6c88f4bd737ed408549c97d1630d93f5a"
+			"Rev": "82bcb89812f6cb7e3f8778473d3e192af56cc5a3"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/web",
-			"Rev": "9e002bd6c88f4bd737ed408549c97d1630d93f5a"
+			"Rev": "82bcb89812f6cb7e3f8778473d3e192af56cc5a3"
+		},
+		{
+			"ImportPath": "github.com/jteeuwen/go-pkg-rss",
+			"Rev": "5576b8d83ed75cbb4bc43ef18c07414f880b3472"
+		},
+		{
+			"ImportPath": "github.com/jteeuwen/go-pkg-xmlx",
+			"Rev": "cf505b97c711dd1c5a4682f68ea04dd35e385b8f"
 		},
 		{
 			"ImportPath": "github.com/russross/blackfriday",

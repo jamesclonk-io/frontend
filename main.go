@@ -10,6 +10,7 @@ import (
 	"github.com/jamesclonk-io/stdlib/web"
 	"github.com/jamesclonk-io/stdlib/web/cms"
 	"github.com/jamesclonk-io/stdlib/web/negroni"
+	"github.com/jamesclonk-io/stdlib/web/newsreader"
 )
 
 var (
@@ -30,10 +31,17 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// newsreader
+	news, err := newsreader.NewReader(frontend, c.GetConfiguration())
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// setup routes
 	frontend.NewRoute("/", index)
-
 	frontend.NewRoute("/refresh", c.RefreshHandler)
+
+	frontend.NewRoute("/news", news.ViewHandler)
 
 	frontend.NewRoute("/101/{.*}", c.ViewHandler)
 	frontend.NewRoute("/101/{.*}/{.*}", c.ViewHandler)
