@@ -46,6 +46,7 @@ func main() {
 	frontend.NewRoute("/101/{.*}", c.ViewHandler)
 	frontend.NewRoute("/101/{.*}/{.*}", c.ViewHandler)
 	frontend.NewRoute("/goty/{.*}", c.ViewHandler)
+	frontend.NewRoute("/static/{.*}", c.ViewHandler)
 
 	frontend.NewRoute("/link", index)
 	frontend.NewRoute("/error", createError)
