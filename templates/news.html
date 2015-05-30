@@ -2,9 +2,9 @@
   {{ if isEvenNumber $idx }}<div class="row">{{ end }}
       <div class="col-md-6">
         <div class="list-group">
-          <a href="{{ .URL }}" class="list-group-item active">
+          <a href="{{ .URL }}" target="_new" class="list-group-item active">
             <h4 class="list-group-item-heading"><span class="badge news-item-badge">{{ len .Items }}</span> {{ .Title }}</h4>
-            <p class="list-group-item-text">{{ .URL }}</p>
+            <p class="list-group-item-text"><i class="fa fa-external-link fa-fw"></i> {{ .URL }}</p>
           </a>
           {{ range .Items }}
             {{ if .Comments }}

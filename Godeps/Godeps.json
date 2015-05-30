@@ -25,15 +25,15 @@
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/env",
-			"Rev": "5ecf9c8340f5f7dbbee93aecda6969faf13b032a"
+			"Rev": "ba6ca38816dc96090d9bd4bf2a205c43b457642d"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/logger",
-			"Rev": "5ecf9c8340f5f7dbbee93aecda6969faf13b032a"
+			"Rev": "ba6ca38816dc96090d9bd4bf2a205c43b457642d"
 		},
 		{
 			"ImportPath": "github.com/jamesclonk-io/stdlib/web",
-			"Rev": "5ecf9c8340f5f7dbbee93aecda6969faf13b032a"
+			"Rev": "ba6ca38816dc96090d9bd4bf2a205c43b457642d"
 		},
 		{
 			"ImportPath": "github.com/jteeuwen/go-pkg-rss",

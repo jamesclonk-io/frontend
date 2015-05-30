@@ -36,6 +36,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	news.GetFeeds()
 
 	// setup routes
 	frontend.NewRoute("/", index)
