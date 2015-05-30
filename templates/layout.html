@@ -13,6 +13,7 @@
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/jcio.css" rel="stylesheet">
   </head>
 
@@ -34,10 +35,10 @@
             {{ $active := .ActiveLink }}
             {{ range .Navigation }}
               {{ if not .Dropdown }}
-                <li class='{{ if eq .Link $active }}active{{ end }}'><a href="{{ .Link }}">{{ .Name }}</a></li>
+                <li class='{{ if eq .Link $active }}active{{ end }}'><a href="{{ .Link }}"><i class="fa {{ .Icon }} fa-fw"></i> <span class="nav-name">{{ .Name }}</span></a></li>
               {{ else }}
                 <li class='dropdown {{ range .Dropdown }}{{ if eq .Link $active }}active{{ end }}{{ end }}'>
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa {{ .Icon }} fa-fw"></i> <span class="nav-name">{{ .Name }} </span><span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                   {{ range .Dropdown }}
                     {{ if eq .Link "#" }}

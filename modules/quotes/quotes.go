@@ -1,6 +1,7 @@
 package quotes
 
 import (
+	"html/template"
 	"math/rand"
 	"net/http"
 	"time"
@@ -13,27 +14,27 @@ var quotes = []string{
 	`valar dohaeris`,
 	`winter is coming`,
 	`the laughing man`,
-	`I thought what I'd do was I'd pretend I was one of those deaf-mutes`,
+	`I thought what I'd do was<br/>I'd pretend I was one of those deaf-mutes`,
 	`the cosmos is all that is or ever was or ever will be`,
-	`imagination will often carry us to worlds that never were, but without it we go nowhere`,
-	`if you wish to make an apple pie from scratch, you must first invent the universe`,
+	`imagination will often carry us to worlds that never were,<br/>but without it we go nowhere`,
+	`if you wish to make an apple pie from scratch,<br/>you must first invent the universe`,
 	`matter is composed mainly of nothing`,
 	`all mass is interaction`,
-	`..and you will find someday that, after all, it isn't as horrible as it looks`,
+	`..and you will find someday that, after all,<br/>it isn't as horrible as it looks`,
 	`ask me when it's all over..`,
-	`the universe seems neither benign nor hostile, merely indifferent`,
+	`the universe seems neither benign nor hostile,<br/>merely indifferent`,
 	`haste makes waste`,
 	`take it with a grain of salt`,
-	`sell a man a fish, he eats for a day, teach a man to fish, he eats for his lifetime`,
-	`a journey of a thousand miles starts with a single step`,
+	`sell a man a fish, he eats for a day,<br/>teach a man to fish, he eats for his lifetime`,
+	`a journey of a thousand miles<br/>starts with a single step`,
 	`holy cow!`,
 	`cogito ergo sum`,
-	`great spirits have always encountered violent opposition from mediocre minds`,
-	`damned if you do, damned if you don't`,
-	`ask me no questions, I'll tell you no lies`,
-	`we are star stuff which has taken its destiny into its own hands`,
+	`great spirits have always encountered<br/>violent opposition from mediocre minds`,
+	`damned if you do,<br/>damned if you don't`,
+	`ask me no questions,<br/>I'll tell you no lies`,
+	`we are star stuff<br/>which has taken its destiny into its own hands`,
 	`holy heart failure, batman!`,
-	`there are only two hard things in computer science: cache invalidation and naming things`} // don't make quotes longer than this one
+	`there are only two hard things in computer science:<br/>cache invalidation and naming things`} // don't make quotes longer than this one
 
 type Quotes struct {
 	frontend *web.Frontend
@@ -53,5 +54,5 @@ func NewQuoteMiddleware(frontend *web.Frontend) *Quotes {
 
 func (c *Quotes) ServeHTTP(http.ResponseWriter, *http.Request) {
 	// quote middleware uses pagemaster data field to store quotes in, so that templates can read it from page.Data
-	c.frontend.PageMaster.Data = getRandomQuote()
+	c.frontend.PageMaster.Data = template.HTML(getRandomQuote())
 }
