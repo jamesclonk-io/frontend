@@ -48,9 +48,6 @@ func main() {
 	frontend.NewRoute("/goty/{.*}", c.ViewHandler)
 	frontend.NewRoute("/static/{.*}", c.ViewHandler)
 
-	frontend.NewRoute("/link", index)
-	frontend.NewRoute("/error", createError)
-
 	// setup negroni
 	n := negroni.Sbagliato()
 	n.UseHandler(quotes.NewQuoteMiddleware(frontend))
