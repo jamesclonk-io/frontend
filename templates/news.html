@@ -3,8 +3,8 @@
       <div class="col-md-6">
         <div class="list-group">
           <a href="{{ .URL }}" class="list-group-item active">
-            <h4 class="list-group-item-heading">{{ .Title }}</h4>
-            <p class="list-group-item-text">ID:{{ .Id }} [{{ .Lines }}] - {{ .URL }}</p>
+            <h4 class="list-group-item-heading"><span class="badge news-item-badge">{{ len .Items }}</span> {{ .Title }}</h4>
+            <p class="list-group-item-text">{{ .URL }}</p>
           </a>
           {{ range .Items }}
             {{ if .Comments }}
