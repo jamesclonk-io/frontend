@@ -3,21 +3,34 @@ language: go
 go:
   - 1.4
 
+env:
+  - secure: "jYU44p7icLqP3cGjzW3MGka4hS7FLaZlESDJY6etgFyq8SDUlWIo6sxRr0wgpJ1pLFYiizgdVbZL2rRN3TMF8baoz/3NcFeyi4VPMGIjZJ0Mg3l/FyMl5xNPjzUnuhn6t/H5Z0maFtYGRktIkkge4JyPPY8+x4OxsOWkcs7owfXNTVAixtKxVTNFMWFDPEH9LRzY6AvCoTTxV1ikYpm8QvG0B29M6l3/UL0kPYu8ZxM9i65K4ijINi4ako/UKobicY/AnN1jRFSqNCoNswOpg8TFdD4BEIgJlzKyXseOcyDMX94fUEVaUnFJacXofftlCYhPhzdUyLHka/58NgCsXuT+CAf5sAGc6QzJAQsfpbpVvyiHLkJ783xN8U5FGcHE9ZzjuUJy5W7XGKZfZ7Ztydc9paaAB/CbkrKdKeXV/T6Vqu6Y267T9hlEGZ9v8wsmiDYVrCt1kdNlS6VAG22+6N9vHznnpLHOaSkJFnWiomNwA9h7lSj5AzStcYW01Kj3V8hIYlkIw148PqXFd9mHyXd31LM1GQVTyccFs6QEngBBVgCxFjwoV8GD6FnfsQDSqtnGnj1IvqWJ1kss1oCu/kVFlKxyTsCvP6dSkr0ru8FyVDyn4T130VH3JTGhrLLLtB9mjLn2RaY1xkUEkaIK4BfQ0RArzdwbfEixrF3axGQ="
+  - secure: "VUf1dEkUQI3EMCWfCcJpEDnMRaUOA3kbMPgwnh3dxkOF5WRAMF15Bp7zpHJSMxbMJ1+e9ez0xM+knwkE2g8c8IpJdHtGQYtgSBksPu+LXoMNF1dV05E6ZWDQHs4m2OdIu7dkZ7HI14pv47N9nD3KuPttzqGnXfuqvzmYn9hOWrPJYC4T3eOg4KCvYbcch0v13TdSvxqqPyGqj4qoKNGvLk1PFS5aVXNG9d2cfiPYCK0silN7lXkHV1MPg4wOqavOt5HjCJKIjFEzzBrkGR/QaHsLyZ6UgHKop3//YT4eGfcflMDIWrtvtTPbQUiKLK23lI+S94AQRhYzw8pqSpsZqAp/PKBMLwKet17jJkzCPunjLD98AqL4sD3yVp3H4EnPV/pay0mysGy1Kc6u/VPTyrUV04bxaDV+cIj7Oq9T7ur8kHD94Bn08jxlOtNx+SmAAw4OxqF18uYq266x2FdW2e9e8PtPcP+Up1i6HC8g+tVL+Q/xb2NBAnf0HHydYYS76gVIMGp1nsSuGXgoJevExlHehZ+wVY+q895OKua8Vnghx9CwCDYEn/jBZezPO/iubjrc+CKciSWkFfUEQgqHJ1k7N/Lu1osSD1qLnKjjlYnugUMeBFfJYCL6SO5AMNK2NIsL5U1+R8nMRq1MItvJnfqFvnCRB12AC3UUTebJNG0="
+
 script: go test -v ./...
+
+after_success:
+    - "wget http://go-cli.s3-website-us-east-1.amazonaws.com/releases/latest/cf-cli_amd64.deb -qO temp.deb && sudo dpkg -i temp.deb"
+    - "rm temp.deb"
+    - "cf api https://api.run.pivotal.io"
+    - "cf login --u $CF_USERNAME --p $CF_PASSWORD --o jamesclonk.io --s development"
+    - "cf push"
+    - "cf logout"
 
 notifications:
   email:
     on_success: change
     on_failure: always
 
-deploy:
-  edge: true
-  provider: cloudfoundry
-  api: https://api.run.pivotal.io
-  username: jamesclonk@jamesclonk.ch
-  password:
-    secure: ihEjAI9xcW2/sH+2Y7nweyDWksgKZ7BDx6BN5lDGC5LwsWvSWfa/O2JmzCn02eUKPvsbaVxIlSyJvNBaP7MSy/oBVbgMQqEDDjJcaixMOx1xBfslt6+WhuPCCBeYK5ZGsQnsKetPnNRDi9kUuTUbtPTU/oHHg6HLUrr1Ec5ymqk1IfiRdy44kd4Xbq3XtzBbyXnfAO1HW9/iL/ve6OYw0G3T5xcThHqWHRF161+o8vOAVRdiV4uuIA9MgknS/bDwpkT95rlHeOlkWotNvVK6TuBUTA0BNUmZ05uyxiS5Zn3MVEMDxwzP8Vhbqye76Qie9RavjRJt5zBj3Ah0Y6qqOsxaLmDuf2Gz0jIXtREfXmywmTeoAUrP2vbML9hC2IOT3KW3yC00cLgGd/qBE4//s3EcIIjg6cHPgPO8M3ZAIpnDFQI3hdil4s6oDCSfWgBhTEVkkxc8ovOhq5qtLXbvqlbqZMI9venRslujvVg1cwG3A7wQib+RX+ZtWFMIJDXaULNTuR4Yue1EcjrOJ5hyoJ68RMqzq2VNmwsDpaQhMtuY4qlg5lAoVdhlmwijWH7a64ZYln5qM9lra8i8nnaJus0wE3EozTeLrLyCRXGwHv/ARi1E+eJ6CmGyZRBVrgNk7BOHHw1PeAPR8GSVnl2lVsLGkvze4ya8EFsEYT71mnE=
-  organization: jamesclonk.io
-  space: development
-  on:
-    branch: master
+# deploy:
+#   edge: true
+#   provider: cloudfoundry
+#   api: https://api.run.pivotal.io
+#   organization: jamesclonk.io
+#   space: development
+#   username:
+#     secure: KWHkotrsqLJk8YErbXQVMIkIqZOqmldXHQp+DzCe7XgHlSG3ShYhGWBUzI4RHf/nuoNQaLnTnTcDZQFSX3AnIF6IvlE56kB5kvgt9sDnwSIbvcZCPOm3p+BOHNovwczUWpJeHcH0gTL/O4HuNcGqma3uh3NUZWOZFjty6oRL10tFReQk0B729UP4Pt/RLIwUBJJcJ3Zvs9jyaIe9rq3axc/C2IevsrY96nkeCgojb9LZCOW65np1jZiLBiw25JOHhJ5je3yvcALvsce8TFQH4CFAis3Odj0eFd0UosKA88s44uMTdddej2mWQd0xGmGsYDXulKlbEM4QXsjA8UuaPbyS383Ef0MFCOfOTOf9rFIDBy7JDc1oOHlvgYIsV2KJUm4AEUCT53NZgLI4EUIAkQ+qV9DQslvM5VrqAA/WcdBjiJP3EYnij82BmeA/1FNGtqU/xAHjXWiZvLqyjVGmgF5QCJzqHvFxP9cRIvw0FUZNiJRq9nLceSjm/p4wI8BLpD3zxaiujjrFDDm5rwW3oLO0hZgkb1aN6a0jaZKEvgf/+xM+mUKE4cX6e86KS3jG74LEcpHO05VTufeq8cQpH7zK4TrykBU0x+9hDkFd/2/nAxwCmfWYp1nUUmKJ+aWsg5TguHuxJjA1uO33FLig0SkLh+2RBPo1By7wXvrX1lU=
+#   password:
+#     secure: EOH6WuLw4t/Joi+nJpHxIsISoBzabRIlW5HMX4gP8jN3fqzzot6zv1owavZnIjDhG4+8tok53sNFLhMoa0Z1cBet2axdFxe3BRj5sDZ8S5iq1+snwjz3X8RTXLbc+GQAMyzoccYft5/QCNTlnN/olquFWJTsAzhbdcz1+4R3l+M0h6NrhiYwRcdIyPgCHpSl53MosAJJAezkOftnWAVfFbg+pl09c4K+lum3poGbL/LpYZaABqr5P4fIUdBAXhFFXC5z7L1k6yvbBHnH/PESTTUHlKYzIAo2fM8zxXvIJ3nT4awUTRrhhNkxRg2c2E+B+quB2Ee3ajQDAdxUsJaUIPAgM2P/HuNTQaIUtqUYi5z0Sm4sbZXipCvuSeKOjIPmKB7kauXowHAK3PaTYOWHPmshOntuHiNxXelLbtj6wi4Z+0JY154rE8EogB4ppn/XxzFjTlT0R5zjYAqt+i72DBn0uXZWJEmPktS86GflWjl6w7AUjhOV+OR6f570E1rBGQA9OY1qFhzBh84CJdF4AmAF38t/QODB4hpfpMpKNMMgwqGW7AqahIPra9xVSPDdVKlrfCSchW9nZyAM6WV8ksKlZiPcEaMtD0VHXrtjkP5INZzzne/38L7hmeLiIws2/oiSOeMBEXX3jxp5LvaTqCAB4S/zNNLk1BL1Eevjf7A=
+#   on:
+#     branch: master
