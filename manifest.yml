@@ -6,6 +6,6 @@ applications:
   instances: 1
   buildpack: https://github.com/cloudfoundry/buildpack-go.git
   host: jcio-frontend
-  domain: 10.244.0.34.xip.io
+  domain: cfapps.io
   command: frontend
   path: .
