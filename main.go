@@ -22,6 +22,26 @@ func init() {
 }
 
 func main() {
+	// setup http handler
+	n := setup()
+
+	// start web server
+	server := web.NewServer()
+	server.Start(n)
+}
+
+func setup() *negroni.Negroni {
+	frontend := frontend()
+
+	// setup negroni
+	n := negroni.Sbagliato()
+	n.UseHandler(quotes.NewQuoteMiddleware(frontend))
+	n.UseHandler(frontend.Router)
+
+	return n
+}
+
+func frontend() *web.Frontend {
 	// frontend
 	frontend := web.NewFrontend("jamesclonk.io")
 
@@ -36,7 +56,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	news.GetFeeds()
+	news.InitializeFeeds()
 
 	// setup routes
 	frontend.NewRoute("/", index)
@@ -49,14 +69,9 @@ func main() {
 	frontend.NewRoute("/goty/{.*}", c.ViewHandler)
 	frontend.NewRoute("/static/{.*}", c.ViewHandler)
 
-	// setup negroni
-	n := negroni.Sbagliato()
-	n.UseHandler(quotes.NewQuoteMiddleware(frontend))
-	n.UseHandler(frontend.Router)
+	frontend.NewRoute("/error/{.*}", createError)
 
-	// start web server
-	server := web.NewServer()
-	server.Start(n)
+	return frontend
 }
 
 func index(w http.ResponseWriter, req *http.Request) *web.Page {
@@ -68,5 +83,5 @@ func index(w http.ResponseWriter, req *http.Request) *web.Page {
 }
 
 func createError(w http.ResponseWriter, req *http.Request) *web.Page {
-	return web.Error("jamesclonk.io", http.StatusInternalServerError, fmt.Errorf("Oops!"))
+	return web.Error("jamesclonk.io - Error", http.StatusInternalServerError, fmt.Errorf("Error!"))
 }
