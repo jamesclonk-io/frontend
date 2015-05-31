@@ -1,8 +1,8 @@
 TAG?=latest
 
-all: frontend
+all: jcio-frontend
 	docker build -t jamesclonk/jcio-frontend:${TAG} .
-	rm frontend
+	rm jcio-frontend
 
-frontend: main.go
-	GOARCH=amd64 GOOS=linux go build -o frontend
+jcio-frontend: main.go
+	GOARCH=amd64 GOOS=linux go build -o jcio-frontend

@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/jamesclonk-io/frontend/modules/quotes"
+	"github.com/jamesclonk-io/jcio-frontend/modules/quotes"
 	"github.com/jamesclonk-io/stdlib/logger"
 	"github.com/jamesclonk-io/stdlib/web"
 	"github.com/jamesclonk-io/stdlib/web/cms"

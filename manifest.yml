@@ -9,7 +9,7 @@ applications:
   domains:
   - jamesclonk.com
   - jamesclonk.io
-  command: frontend
+  command: jcio-frontend
   path: .
   env:
     JCIO_ENV: production

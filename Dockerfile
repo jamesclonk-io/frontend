@@ -2,8 +2,8 @@ FROM ubuntu:14.04
 
 EXPOSE 3000
 
-ADD frontend /frontend
+ADD jcio-frontend /jcio-frontend
 ADD public /public
 ADD templates /templates
 
-CMD ["/frontend"]
+CMD ["/jcio-frontend"]
