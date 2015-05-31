@@ -5,7 +5,9 @@ applications:
   disk_quota: 64M
   instances: 1
   buildpack: https://github.com/cloudfoundry/buildpack-go.git
-  host: jcio-frontend
-  domain: cfapps.io
+  host: dev
+  domains:
+  - jamesclonk.com
+  - jamesclonk.io
   command: frontend
   path: .
