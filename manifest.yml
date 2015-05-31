@@ -11,3 +11,5 @@ applications:
   - jamesclonk.io
   command: frontend
   path: .
+  env:
+    JCIO_ENV: production
