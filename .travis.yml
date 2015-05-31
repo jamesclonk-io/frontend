@@ -22,16 +22,3 @@ notifications:
   email:
     on_success: change
     on_failure: always
-
-# deploy:
-#   edge: true
-#   provider: cloudfoundry
-#   api: https://api.run.pivotal.io
-#   organization: jamesclonk.io
-#   space: development
-#   username:
-#     secure: KWHkotrsqLJk8YErbXQVMIkIqZOqmldXHQp+DzCe7XgHlSG3ShYhGWBUzI4RHf/nuoNQaLnTnTcDZQFSX3AnIF6IvlE56kB5kvgt9sDnwSIbvcZCPOm3p+BOHNovwczUWpJeHcH0gTL/O4HuNcGqma3uh3NUZWOZFjty6oRL10tFReQk0B729UP4Pt/RLIwUBJJcJ3Zvs9jyaIe9rq3axc/C2IevsrY96nkeCgojb9LZCOW65np1jZiLBiw25JOHhJ5je3yvcALvsce8TFQH4CFAis3Odj0eFd0UosKA88s44uMTdddej2mWQd0xGmGsYDXulKlbEM4QXsjA8UuaPbyS383Ef0MFCOfOTOf9rFIDBy7JDc1oOHlvgYIsV2KJUm4AEUCT53NZgLI4EUIAkQ+qV9DQslvM5VrqAA/WcdBjiJP3EYnij82BmeA/1FNGtqU/xAHjXWiZvLqyjVGmgF5QCJzqHvFxP9cRIvw0FUZNiJRq9nLceSjm/p4wI8BLpD3zxaiujjrFDDm5rwW3oLO0hZgkb1aN6a0jaZKEvgf/+xM+mUKE4cX6e86KS3jG74LEcpHO05VTufeq8cQpH7zK4TrykBU0x+9hDkFd/2/nAxwCmfWYp1nUUmKJ+aWsg5TguHuxJjA1uO33FLig0SkLh+2RBPo1By7wXvrX1lU=
-#   password:
-#     secure: EOH6WuLw4t/Joi+nJpHxIsISoBzabRIlW5HMX4gP8jN3fqzzot6zv1owavZnIjDhG4+8tok53sNFLhMoa0Z1cBet2axdFxe3BRj5sDZ8S5iq1+snwjz3X8RTXLbc+GQAMyzoccYft5/QCNTlnN/olquFWJTsAzhbdcz1+4R3l+M0h6NrhiYwRcdIyPgCHpSl53MosAJJAezkOftnWAVfFbg+pl09c4K+lum3poGbL/LpYZaABqr5P4fIUdBAXhFFXC5z7L1k6yvbBHnH/PESTTUHlKYzIAo2fM8zxXvIJ3nT4awUTRrhhNkxRg2c2E+B+quB2Ee3ajQDAdxUsJaUIPAgM2P/HuNTQaIUtqUYi5z0Sm4sbZXipCvuSeKOjIPmKB7kauXowHAK3PaTYOWHPmshOntuHiNxXelLbtj6wi4Z+0JY154rE8EogB4ppn/XxzFjTlT0R5zjYAqt+i72DBn0uXZWJEmPktS86GflWjl6w7AUjhOV+OR6f570E1rBGQA9OY1qFhzBh84CJdF4AmAF38t/QODB4hpfpMpKNMMgwqGW7AqahIPra9xVSPDdVKlrfCSchW9nZyAM6WV8ksKlZiPcEaMtD0VHXrtjkP5INZzzne/38L7hmeLiIws2/oiSOeMBEXX3jxp5LvaTqCAB4S/zNNLk1BL1Eevjf7A=
-#   on:
-#     branch: master
