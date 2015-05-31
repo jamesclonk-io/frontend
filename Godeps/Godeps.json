@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/jamesclonk-io/frontend",
+	"ImportPath": "github.com/jamesclonk-io/jcio-frontend",
 	"GoVersion": "go1.4.1",
 	"Packages": [
 		"./..."
