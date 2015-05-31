@@ -6,6 +6,7 @@ go:
 script: go test -v ./...
 
 deploy:
+  edge: true
   provider: cloudfoundry
   api: https://api.run.pivotal.io
   organization: jamesclonk.io
