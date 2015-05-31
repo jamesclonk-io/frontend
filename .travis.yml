@@ -20,4 +20,4 @@ deploy:
   organization: jamesclonk.io
   space: development
   on:
-    repo: jamesclonk-io/frontend
+    branch: master
