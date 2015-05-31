@@ -11,6 +11,7 @@ notifications:
     on_failure: always
 
 deploy:
+  edge: true
   provider: cloudfoundry
   api: https://api.run.pivotal.io
   username: jamesclonk@jamesclonk.ch
