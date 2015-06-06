@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/jamesclonk-io/jcio-frontend/modules/newsfeed"
 	"github.com/jamesclonk-io/jcio-frontend/modules/quotes"
 	"github.com/jamesclonk-io/stdlib/logger"
 	"github.com/jamesclonk-io/stdlib/web"
@@ -56,7 +57,7 @@ func frontend() *web.Frontend {
 	if err != nil {
 		log.Fatal(err)
 	}
-	news.InitializeFeeds()
+	newsfeed.UpdateFeeds(news)
 
 	// setup routes
 	frontend.NewRoute("/", index)
