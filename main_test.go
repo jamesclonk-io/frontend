@@ -5,16 +5,16 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
-	"regexp"
 	"testing"
 
 	"github.com/Sirupsen/logrus"
 	"github.com/jamesclonk-io/stdlib/logger"
+	"github.com/jamesclonk-io/stdlib/web/negroni"
 	"github.com/stretchr/testify/assert"
 )
 
 var (
-	titleRx = regexp.MustCompile(`<title>[\S| ]+</title>`)
+	m *negroni.Negroni
 )
 
 func init() {
@@ -22,12 +22,11 @@ func init() {
 	os.Setenv("JCIO_CMS_DATA", "https://github.com/jamesclonk-io/content/archive/master.zip")
 	logrus.SetOutput(ioutil.Discard)
 	logger.GetLogger().Out = ioutil.Discard
+	m = setup()
 }
 
 func Test_Main_Setup(t *testing.T) {
 	response := httptest.NewRecorder()
-	m := setup()
-
 	req, err := http.NewRequest("GET", "http://localhost:3003/", nil)
 	if err != nil {
 		t.Error(err)
@@ -43,8 +42,6 @@ func Test_Main_Setup(t *testing.T) {
 
 func Test_Main_404(t *testing.T) {
 	response := httptest.NewRecorder()
-	m := setup()
-
 	req, err := http.NewRequest("GET", "http://localhost:3003/something", nil)
 	if err != nil {
 		t.Error(err)
@@ -60,8 +57,6 @@ func Test_Main_404(t *testing.T) {
 
 func Test_Main_500(t *testing.T) {
 	response := httptest.NewRecorder()
-	m := setup()
-
 	req, err := http.NewRequest("GET", "http://localhost:3003/error/something", nil)
 	if err != nil {
 		t.Error(err)
@@ -77,8 +72,6 @@ func Test_Main_500(t *testing.T) {
 
 func Test_Main_Index(t *testing.T) {
 	response := httptest.NewRecorder()
-	m := setup()
-
 	req, err := http.NewRequest("GET", "/", nil)
 	if err != nil {
 		t.Error(err)
@@ -94,8 +87,6 @@ func Test_Main_Index(t *testing.T) {
 
 func Test_Main_News(t *testing.T) {
 	response := httptest.NewRecorder()
-	m := setup()
-
 	req, err := http.NewRequest("GET", "http://localhost:3003/news", nil)
 	if err != nil {
 		t.Error(err)
@@ -121,8 +112,6 @@ func Test_Main_News(t *testing.T) {
 
 func Test_Main_101(t *testing.T) {
 	response := httptest.NewRecorder()
-	m := setup()
-
 	req, err := http.NewRequest("GET", "http://localhost:3003/101/Links", nil)
 	if err != nil {
 		t.Error(err)
@@ -135,12 +124,57 @@ func Test_Main_101(t *testing.T) {
 	assert.Contains(t, body, `<title>jamesclonk.io - Links</title>`)
 	assert.Contains(t, body, `<li><a href="https://github.com/JamesClonk">https://github.com/JamesClonk</a></li>`)
 	assert.Contains(t, body, `<li><a href="http://golang.org/doc/effective_go.html">http://golang.org/doc/effective_go.html</a></li>`)
+
+	// 404 response expected
+	response = httptest.NewRecorder()
+	req, err = http.NewRequest("GET", "http://localhost:3003/101/does_not_exist", nil)
+	if err != nil {
+		t.Error(err)
+	}
+
+	m.ServeHTTP(response, req)
+	assert.Equal(t, http.StatusNotFound, response.Code)
+
+	body = response.Body.String()
+	assert.Contains(t, body, `<title>jamesclonk.io - does_not_exist - Not Found</title>`)
+	assert.Contains(t, body, `<div class="alert alert-warning">This is not the page you are looking for..</div>`)
+}
+
+func Test_Main_GOTY(t *testing.T) {
+	response := httptest.NewRecorder()
+	req, err := http.NewRequest("GET", "http://localhost:3003/goty/2009", nil)
+	if err != nil {
+		t.Error(err)
+	}
+
+	m.ServeHTTP(response, req)
+	assert.Equal(t, http.StatusOK, response.Code)
+
+	body := response.Body.String()
+	assert.Contains(t, body, `<title>jamesclonk.io - 2009</title>`)
+	assert.Contains(t, body, `Game of the Year`)
+	assert.Contains(t, body, `<a href="http://en.wikipedia.org/wiki/Uncharted_2:_Among_Thieves">Uncharted 2: Among Thieves</a>`)
+	assert.Contains(t, body, `<a href="http://store.steampowered.com/app/47810/">Dragon Age: Origins</a>`)
+	assert.Contains(t, body, `Fortune favours the bold..`)
+	assert.Contains(t, body, `<img src="/images/goty/fortune.jpg" alt="Uncharted 2: Among Thieves" title="Uncharted 2: Among Thieves" />`)
+
+	// 404 response expected
+	response = httptest.NewRecorder()
+	req, err = http.NewRequest("GET", "http://localhost:3003/goty/2006", nil)
+	if err != nil {
+		t.Error(err)
+	}
+
+	m.ServeHTTP(response, req)
+	assert.Equal(t, http.StatusNotFound, response.Code)
+
+	body = response.Body.String()
+	assert.Contains(t, body, `<title>jamesclonk.io - 2006 - Not Found</title>`)
+	assert.Contains(t, body, `<div class="alert alert-warning">This is not the page you are looking for..</div>`)
 }
 
 func Test_Main_MyMovies(t *testing.T) {
 	response := httptest.NewRecorder()
-	m := setup()
-
 	req, err := http.NewRequest("GET", "http://localhost:3003/static/Movies", nil)
 	if err != nil {
 		t.Error(err)
@@ -158,8 +192,6 @@ func Test_Main_MyMovies(t *testing.T) {
 
 func Test_Main_Quake3(t *testing.T) {
 	response := httptest.NewRecorder()
-	m := setup()
-
 	req, err := http.NewRequest("GET", "http://localhost:3003/static/Quake", nil)
 	if err != nil {
 		t.Error(err)
@@ -178,8 +210,6 @@ func Test_Main_Quake3(t *testing.T) {
 
 func Test_Main_Gallery(t *testing.T) {
 	response := httptest.NewRecorder()
-	m := setup()
-
 	req, err := http.NewRequest("GET", "http://localhost:3003/static/Gallery", nil)
 	if err != nil {
 		t.Error(err)

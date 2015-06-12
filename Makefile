@@ -6,3 +6,6 @@ all: jcio-frontend
 
 jcio-frontend: main.go
 	GOARCH=amd64 GOOS=linux go build -o jcio-frontend
+
+test:
+	GOARCH=amd64 GOOS=linux go test -v ./...
