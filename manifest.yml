@@ -5,7 +5,8 @@ applications:
   disk_quota: 64M
   instances: 2
   buildpack: https://github.com/cloudfoundry/buildpack-go.git
-  host: dev
+  hosts:
+  - www
   domains:
   - jamesclonk.com
   - jamesclonk.io
