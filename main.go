@@ -61,6 +61,8 @@ func frontend() *web.Frontend {
 
 	// setup routes
 	frontend.NewRoute("/", index)
+	frontend.NewRoute("/example", example)
+
 	frontend.NewRoute("/refresh", c.RefreshHandler)
 
 	frontend.NewRoute("/news", news.ViewHandler)
@@ -80,6 +82,14 @@ func index(w http.ResponseWriter, req *http.Request) *web.Page {
 		ActiveLink: "/",
 		Content:    nil,
 		Template:   "index",
+	}
+}
+
+func example(w http.ResponseWriter, req *http.Request) *web.Page {
+	return &web.Page{
+		ActiveLink: "/",
+		Content:    nil,
+		Template:   "example",
 	}
 }
 
