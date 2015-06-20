@@ -85,6 +85,21 @@ func Test_Main_Index(t *testing.T) {
 	assert.Contains(t, body, `<img src="/images/welcome.png" class="welcome-picture" alt="jamesclonk.io"/>`)
 }
 
+func Test_Main_Example(t *testing.T) {
+	response := httptest.NewRecorder()
+	req, err := http.NewRequest("GET", "/example", nil)
+	if err != nil {
+		t.Error(err)
+	}
+
+	m.ServeHTTP(response, req)
+	assert.Equal(t, http.StatusOK, response.Code)
+
+	body := response.Body.String()
+	assert.Contains(t, body, `<title>jamesclonk.io</title>`)
+	assert.Contains(t, body, `<button type="button" class="btn btn-lg btn-danger">Danger</button>`)
+}
+
 func Test_Main_News(t *testing.T) {
 	response := httptest.NewRecorder()
 	req, err := http.NewRequest("GET", "http://localhost:3003/news", nil)
