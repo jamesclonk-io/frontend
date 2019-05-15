@@ -119,8 +119,8 @@ func Test_Main_News(t *testing.T) {
 
 	assert.Contains(t, body, `Ars Technica`)
 	assert.Contains(t, body, `<a href="http://arstechnica.com" target="_new" class="list-group-item active">`)
-	assert.Contains(t, body, `<p class="list-group-item-text"><i class="fa fa-external-link fa-fw"></i> http://arstechnica.com</p>`)
-
+	assert.Contains(t, body, `<p class="list-group-item-text"><i class="fa fa-external-link fa-fw"></i> https://arstechnica.com</p>`)
+	
 	//assert.Contains(t, body, `<a href="http://www.heise.de/newsticker/meldung/`)
 	//assert.Contains(t, body, `<a href="https://www.reddit.com/r/technology`)
 }
