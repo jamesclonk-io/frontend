@@ -1,20 +1,20 @@
 language: go
 
 go:
-  - "1.10"
+  - "1.13"
 
 script: go test -v ./...
 
-## swisscom
-after_success:
-    - "wget 'https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.32.0&source=github-rel' -qO cf-cli.tgz"
-    - "tar -xvzf cf-cli.tgz"
-    - "chmod +x cf"
-    - "rm cf-cli.tgz"
-    - "./cf api https://api.lyra-836.appcloud.swisscom.com"
-    - "./cf login -u $APC_USERNAME -p $APC_PASSWORD -o $APC_ORGANIZATION -s PROD"
-    - "./cf push"
-    - "./cf logout"
+# ## swisscom
+# after_success:
+#     - "wget 'https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.32.0&source=github-rel' -qO cf-cli.tgz"
+#     - "tar -xvzf cf-cli.tgz"
+#     - "chmod +x cf"
+#     - "rm cf-cli.tgz"
+#     - "./cf api https://api.lyra-836.appcloud.swisscom.com"
+#     - "./cf login -u $APC_USERNAME -p $APC_PASSWORD -o $APC_ORGANIZATION -s PROD"
+#     - "./cf push"
+#     - "./cf logout"
 
 notifications:
   email:

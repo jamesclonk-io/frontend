@@ -1,0 +1,39 @@
+# github.com/Sirupsen/logrus v0.7.4-0.20150512173802-52919f182f9c
+github.com/Sirupsen/logrus
+# github.com/codegangsta/negroni v0.1.1-0.20150319171304-c7477ad8e330
+github.com/codegangsta/negroni
+# github.com/davecgh/go-spew v1.1.1
+github.com/davecgh/go-spew/spew
+# github.com/gorilla/context v0.0.0-20141217160251-215affda49ad
+github.com/gorilla/context
+# github.com/gorilla/mux v0.0.0-20150505170136-94903de8c98a
+github.com/gorilla/mux
+# github.com/jamesclonk-io/stdlib v0.0.0-20200627160818-d636edba8f96
+github.com/jamesclonk-io/stdlib/env
+github.com/jamesclonk-io/stdlib/logger
+github.com/jamesclonk-io/stdlib/web
+github.com/jamesclonk-io/stdlib/web/cms
+github.com/jamesclonk-io/stdlib/web/negroni
+github.com/jamesclonk-io/stdlib/web/newsreader
+# github.com/mattn/go-pkg-rss v0.0.0-20180208005446-cb3c88c0b82e
+github.com/mattn/go-pkg-rss
+# github.com/mattn/go-pkg-xmlx v0.0.0-20180208005205-db53493302d1
+github.com/mattn/go-pkg-xmlx
+# github.com/phyber/negroni-gzip v0.0.0-20141202101909-48f82605778a
+github.com/phyber/negroni-gzip/gzip
+# github.com/pmezard/go-difflib v1.0.0
+github.com/pmezard/go-difflib/difflib
+# github.com/russross/blackfriday v0.0.0-20150506130036-4bed88b4fd00
+github.com/russross/blackfriday
+# github.com/shurcooL/sanitized_anchor_name v0.0.0-20150515002706-11a20b799bf2
+github.com/shurcooL/sanitized_anchor_name
+# github.com/stretchr/testify v1.4.0
+github.com/stretchr/testify/assert
+# github.com/tylerb/graceful v0.0.0-20150505000425-49b853e77ab5
+github.com/tylerb/graceful
+# github.com/unrolled/render v0.0.0-20150425044026-83f2ba57c12c
+github.com/unrolled/render
+# golang.org/x/net v0.0.0-20150508231843-e0403b4e0057
+golang.org/x/net/netutil
+# gopkg.in/yaml.v2 v2.2.8
+gopkg.in/yaml.v2
