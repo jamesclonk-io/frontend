@@ -1,5 +1,9 @@
+# github.com/PuerkitoBio/goquery v1.5.1
+github.com/PuerkitoBio/goquery
 # github.com/Sirupsen/logrus v0.7.4-0.20150512173802-52919f182f9c
 github.com/Sirupsen/logrus
+# github.com/andybalholm/cascadia v1.2.0
+github.com/andybalholm/cascadia
 # github.com/codegangsta/negroni v0.1.1-0.20150319171304-c7477ad8e330
 github.com/codegangsta/negroni
 # github.com/davecgh/go-spew v1.1.1
@@ -8,17 +12,21 @@ github.com/davecgh/go-spew/spew
 github.com/gorilla/context
 # github.com/gorilla/mux v0.0.0-20150505170136-94903de8c98a
 github.com/gorilla/mux
-# github.com/jamesclonk-io/stdlib v0.0.0-20200627160818-d636edba8f96
+# github.com/jamesclonk-io/stdlib v0.0.0-20200627175813-6e9593d551e8
 github.com/jamesclonk-io/stdlib/env
 github.com/jamesclonk-io/stdlib/logger
 github.com/jamesclonk-io/stdlib/web
 github.com/jamesclonk-io/stdlib/web/cms
 github.com/jamesclonk-io/stdlib/web/negroni
 github.com/jamesclonk-io/stdlib/web/newsreader
-# github.com/mattn/go-pkg-rss v0.0.0-20180208005446-cb3c88c0b82e
-github.com/mattn/go-pkg-rss
-# github.com/mattn/go-pkg-xmlx v0.0.0-20180208005205-db53493302d1
-github.com/mattn/go-pkg-xmlx
+# github.com/mmcdole/gofeed v1.0.0
+github.com/mmcdole/gofeed
+github.com/mmcdole/gofeed/atom
+github.com/mmcdole/gofeed/extensions
+github.com/mmcdole/gofeed/internal/shared
+github.com/mmcdole/gofeed/rss
+# github.com/mmcdole/goxpp v0.0.0-20181012175147-0068e33feabf
+github.com/mmcdole/goxpp
 # github.com/phyber/negroni-gzip v0.0.0-20141202101909-48f82605778a
 github.com/phyber/negroni-gzip/gzip
 # github.com/pmezard/go-difflib v1.0.0
@@ -33,7 +41,28 @@ github.com/stretchr/testify/assert
 github.com/tylerb/graceful
 # github.com/unrolled/render v0.0.0-20150425044026-83f2ba57c12c
 github.com/unrolled/render
-# golang.org/x/net v0.0.0-20150508231843-e0403b4e0057
+# golang.org/x/net v0.0.0-20200625001655-4c5254603344
+golang.org/x/net/html
+golang.org/x/net/html/atom
+golang.org/x/net/html/charset
 golang.org/x/net/netutil
+# golang.org/x/text v0.3.3
+golang.org/x/text/encoding
+golang.org/x/text/encoding/charmap
+golang.org/x/text/encoding/htmlindex
+golang.org/x/text/encoding/internal
+golang.org/x/text/encoding/internal/identifier
+golang.org/x/text/encoding/japanese
+golang.org/x/text/encoding/korean
+golang.org/x/text/encoding/simplifiedchinese
+golang.org/x/text/encoding/traditionalchinese
+golang.org/x/text/encoding/unicode
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/tag
+golang.org/x/text/internal/utf8internal
+golang.org/x/text/language
+golang.org/x/text/runes
+golang.org/x/text/transform
 # gopkg.in/yaml.v2 v2.2.8
 gopkg.in/yaml.v2
