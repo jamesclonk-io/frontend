@@ -1,6 +1,7 @@
 # github.com/PuerkitoBio/goquery v1.5.1
 github.com/PuerkitoBio/goquery
 # github.com/Sirupsen/logrus v0.7.4-0.20150512173802-52919f182f9c
+## explicit
 github.com/Sirupsen/logrus
 # github.com/andybalholm/cascadia v1.2.0
 github.com/andybalholm/cascadia
@@ -12,7 +13,8 @@ github.com/davecgh/go-spew/spew
 github.com/gorilla/context
 # github.com/gorilla/mux v0.0.0-20150505170136-94903de8c98a
 github.com/gorilla/mux
-# github.com/jamesclonk-io/stdlib v0.0.0-20200627175813-6e9593d551e8
+# github.com/jamesclonk-io/stdlib v0.0.0-20200719175116-dc20a9529da5
+## explicit
 github.com/jamesclonk-io/stdlib/env
 github.com/jamesclonk-io/stdlib/logger
 github.com/jamesclonk-io/stdlib/web
@@ -36,6 +38,7 @@ github.com/russross/blackfriday
 # github.com/shurcooL/sanitized_anchor_name v0.0.0-20150515002706-11a20b799bf2
 github.com/shurcooL/sanitized_anchor_name
 # github.com/stretchr/testify v1.4.0
+## explicit
 github.com/stretchr/testify/assert
 # github.com/tylerb/graceful v0.0.0-20150505000425-49b853e77ab5
 github.com/tylerb/graceful
