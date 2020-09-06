@@ -10,6 +10,7 @@ import (
 	"github.com/jamesclonk-io/stdlib/logger"
 	"github.com/jamesclonk-io/stdlib/web"
 	"github.com/jamesclonk-io/stdlib/web/cms"
+	"github.com/jamesclonk-io/stdlib/web/metrics"
 	"github.com/jamesclonk-io/stdlib/web/negroni"
 	"github.com/jamesclonk-io/stdlib/web/newsreader"
 )
@@ -25,6 +26,9 @@ func init() {
 func main() {
 	// setup http handler
 	n := setup()
+
+	// start metrics handler
+	metrics.Start()
 
 	// start web server
 	server := web.NewServer()
