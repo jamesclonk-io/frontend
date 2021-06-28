@@ -23,7 +23,7 @@ github.com/golang/protobuf/ptypes/timestamp
 github.com/gorilla/context
 # github.com/gorilla/mux v0.0.0-20150505170136-94903de8c98a
 github.com/gorilla/mux
-# github.com/jamesclonk-io/stdlib v0.0.0-20210628121947-6709e7ba3243
+# github.com/jamesclonk-io/stdlib v0.0.0-20210628123645-6ab55cbf971a
 ## explicit
 github.com/jamesclonk-io/stdlib/env
 github.com/jamesclonk-io/stdlib/logger
