@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/Sirupsen/logrus v0.7.4-0.20150512173802-52919f182f9c
-	github.com/jamesclonk-io/stdlib v0.0.0-20200906094026-d944fa8d2c90
+	github.com/jamesclonk-io/stdlib v0.0.0-20210628121947-6709e7ba3243
 	github.com/prometheus/client_golang v1.7.1
 	github.com/stretchr/testify v1.4.0
 )
