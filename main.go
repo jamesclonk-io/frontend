@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/jamesclonk-io/jcio-frontend/modules/newsfeed"
 	"github.com/jamesclonk-io/jcio-frontend/modules/quotes"
 	"github.com/jamesclonk-io/stdlib/logger"
@@ -13,6 +12,7 @@ import (
 	"github.com/jamesclonk-io/stdlib/web/metrics"
 	"github.com/jamesclonk-io/stdlib/web/negroni"
 	"github.com/jamesclonk-io/stdlib/web/newsreader"
+	"github.com/sirupsen/logrus"
 )
 
 var (

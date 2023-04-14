@@ -7,9 +7,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/jamesclonk-io/stdlib/logger"
 	"github.com/jamesclonk-io/stdlib/web/negroni"
+	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -120,7 +120,7 @@ func Test_Main_News(t *testing.T) {
 	assert.Contains(t, body, `Ars Technica`)
 	assert.Contains(t, body, `<a href="https://arstechnica.com" target="_new" class="list-group-item active">`)
 	assert.Contains(t, body, `<p class="list-group-item-text"><i class="fa fa-external-link fa-fw"></i> https://arstechnica.com</p>`)
-	
+
 	//assert.Contains(t, body, `<a href="http://www.heise.de/newsticker/meldung/`)
 	//assert.Contains(t, body, `<a href="https://www.reddit.com/r/technology`)
 }
